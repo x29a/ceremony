@@ -1,9 +1,9 @@
-The player uses the WiringPi library to control the MCP23017 and some MIDI lib that everybody seems to use but where i cant find the origin for parsing the MIDI information. The MIDI lib is stripped down and modified to my needs (simply parse the midi and return the information in an array instead of triggering events, see midi.py).
+The player uses the [WiringPi](http://wiringpi.com/) library to control the MCP23017 and some MIDI lib (that everybody seems to use but where i cant find the origin) for parsing the MIDI information. The MIDI lib is stripped down and modified to the needs (simply parse the midi and return the information in an array instead of triggering events, see [midi.py](midi.py)).
 
 ## Principle
 The player is a python script which loops through all files in a special folder (the playlist). It plays each file and sleeps for a short period in between files. Once all files were played, it waits for a bit longer.
 
-In order to achieve millisecond precision (which is dictated by MIDI), a busywaiting loop is employed. 
+In order to achieve millisecond precision (which is dictated by MIDI), a busywaiting loop is employed. This should be improved because it eats up all the CPU!
 
 ## Special configuration
 Certain files are handled in a special manner by the player if found in the playlist
