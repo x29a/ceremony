@@ -1,5 +1,7 @@
 This is the code that drives the art project "Ceremony" by Anne Pfeifer (http://www.annepfeifer.com).
 
+![Ceremony](ceremony.jpg?raw=true "Ceremony")
+
 ## Ceremony
 Ceremony is an art installation consisting of 9 wooden boxes that are mounted on a wall in an arrangement of 3 x 3. Solenoids within the boxes can hit the boxes that are lined with various materials which produces a special and different sound on each box. Since the boxes are mounted on springs, they generate great accoustics and keep bouncing, even when the solenoids are turned off.
 
