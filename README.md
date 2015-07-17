@@ -10,7 +10,7 @@ The installation consists of multiple components of which the technical ones are
 The core of the electronic part is a Raspberry Pi (Model B), equipped with an TP-Link 725N USB Dongle. A stripped down headless version of raspbian is used.
 
 ### Driver
-The nine solenoids are driven by an TODO which is connected via SPI to the RPi. The digital outputs are then amplified with TODO and directly power the solenoids
+The nine solenoids are driven by an MCP23017 which is connected via SPI to the RPi. The digital outputs are then amplified with TODO and directly power the solenoids
 
 ### Webinterface
 The WLAN dongle creates a special (protected) adhoc WiFi (hostapd + udhcpd) where the configuration can be performed via e.g. laptop or smartphone.
