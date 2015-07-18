@@ -5,13 +5,16 @@ error_reporting(-1);
 
 // configuration
 $upload_dir = './uploads/';
-$current_dir = './midi/';
+$current_dir = './playlist/';
+
+$root_folder = '/var/www/ceremony/';
 
 function killPlayer()
 {
+  global $root_folder;  
   system('sudo killall python');
   system('sudo killall screen');
-  system('sudo python /var/www/turnoff.py');
+  system('sudo python '.$root_folder.'web/turnoff.py');
 }
 
 if(isset($_GET['r']))
@@ -37,8 +40,9 @@ if(isset($_GET['s']))
 
 if(isset($_GET['p']))
 {
+  global $root_folder;  
   killPlayer();
-  system('sudo screen -dmS player python /var/www/player.py');
+  system('sudo screen -dmS player python '.$root_folder.'player/player.py');
   header('Location: index.php');
 }
 ?>

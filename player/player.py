@@ -17,8 +17,8 @@ i2c_addr = 0x20
 # how long a pin should be high/on, in seconds
 on_duration = 0.2
 # location of midi files
-file_location = "/var/www/midi/"
-mapping_file = '/var/www/midi/mapping'
+file_location = "../web/midi/"
+mapping_file = file_location + 'mapping'
 
 
 # functions
