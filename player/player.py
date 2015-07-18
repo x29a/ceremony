@@ -1,6 +1,7 @@
 from midi import ParseMidi
 from lib.MidiInFile import MidiInFile
 
+# choose between real external hardware and a mockup
 #import wiringpi2 as wpi
 from mock import wpi
 
@@ -9,25 +10,32 @@ import glob
 import os
 import ast
 from time import time
+from datetime import datetime
+import timeit
 
 # configuration
 pin_base = 65
 pin_last = 80
 i2c_addr = 0x20
-# how long a pin should be high/on, in seconds
+# how long a pin should be high/on in the test program, in seconds
 on_duration = 0.2
+
 # location of midi files
 file_location = "../web/playlist/"
 mapping_file = file_location + 'mapping'
 
 
 # functions
+def debug(text):
+    if False:
+        print text;
+
 def pin_on(pin):
-  print "pin: "+str(pin)+" - on"
+  debug("pin: "+str(pin)+" - on")
   wpi.digitalWrite(pin, 1)
 
 def pin_off(pin):
-  print "pin: "+str(pin)+" - off"
+  debug("pin: "+str(pin)+" - off")
   wpi.digitalWrite(pin, 0)
 
 def all_on():
@@ -39,7 +47,7 @@ def all_off():
     pin_off(pin)
 
 def playMidi(filename):
-  print "playing:", filename
+  debug("playing:" + filename)
   parser = ParseMidi()
   midi_in = MidiInFile(parser, filename)
   midi_in.read()
@@ -55,7 +63,7 @@ def playMidi(filename):
         s = f.read()
         mapping = ast.literal_eval(s)
     else:
-      print "mapping file not found"
+      debug("using default mapping")
   except:
     pass
 
@@ -70,14 +78,12 @@ def playMidi(filename):
       42: 78,
       43: 79,
       44: 80}
-  print "m:", mapping
+  debug("mapping:"+str(mapping))
 
-  print "last: ",last
-  total_start = time()
-  print('s: {0:.6f}'.format(total_start))
+  total_start = timeit.default_timer()
   # iterate through all milliseconds
   for current_ms in xrange(0, last+1):
-    start = time()
+    start = timeit.default_timer()
 
     # check if events are to be processed
     try:
@@ -96,22 +102,25 @@ def playMidi(filename):
                 elif event['mode'] == 1:
                   pin_on(pin)
               else:
-                print "unknown mode in event:", event
+                debug("unknown mode in event:"+event)
             else:
-              print "no mapping for note:", event['note']
+              debug("no mapping for note:" + event['note'])
     except:
       pass
 
-    end = time()
+    end = timeit.default_timer()
     
     # fill the rest of the millisecond
     while (end-start) < (1.0/(1000.0)):
-      end = time()
-  total_end = time()
-  print('e: {0:.6f}'.format(total_end))
-
+      end = timeit.default_timer()
+  total_end = timeit.default_timer()
+  #total_diff = 1000.0*(total_end-total_start)
+  #skew = total_diff - last
+  #print "total: " + str(total_diff)
+  #print "last: " + str(last)
+  #print("skew: "+str(skew))
 def playTest():
-  print "testing"
+  debug("testing")
   # toggle through all pins and turn them on shortly
   for pin in xrange(pin_base, pin_last+1):
     pin_on(pin)
@@ -132,7 +141,7 @@ try:
   while True:
     # find files to be played
     for file in glob.glob(file_location+'*'):
-      print "f:"+file
+      print "playing: "+file
       if file.endswith('.mid') or file.endswith('.midi'):
         playMidi(file)
         sleep(5)
