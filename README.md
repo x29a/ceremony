@@ -1,4 +1,4 @@
-This is the code that drives the art project "Ceremony" by Anne Pfeifer (http://www.annepfeifer.com).
+This is the code that drives the art project "Ceremony" (https://www.youtube.com/watch?v=tKj1CYT8b3c) by Anne Pfeifer (http://www.annepfeifer.com).
 
 ![Ceremony](ceremony.jpg?raw=true "Ceremony")
 
